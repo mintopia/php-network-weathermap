@@ -20,6 +20,9 @@
     $archiveFileName = date('YmdHis-{$file}.png');
     
     // Execute weathermap
+    if (!file_exists($path)) {
+      mkdir($path);
+    }
     passthru("php /opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
     
     // Copy weathermap to archive
