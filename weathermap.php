@@ -7,7 +7,7 @@
     echo "{$time} Processing weathermaps\r\n";
     $configs = glob('/configs/*.conf');
     foreach ($configs as $config) {
-      processWeathermap(str_replace('.conf', '', $config));
+      processWeathermap(substr(9, -5, $config));
     }
   }
   
@@ -19,7 +19,7 @@
     $archiveFileName = date('YmdHis-{$file}.png');
     
     // Execute weathermap
-    exec("/usr/bin/php opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
+    passthru("/usr/bin/php opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
     
     // Copy weathermap to archive
     copy($path . '/weathermap.png', $path . '/archive/' . $archiveFilename);
