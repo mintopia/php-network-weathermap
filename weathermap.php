@@ -1,4 +1,5 @@
 <?php
+  date_default_timezone_set('Europe/London');
   set_time_limit(0);
   
   function processWeathermaps()
@@ -19,7 +20,7 @@
     $archiveFileName = date('YmdHis-{$file}.png');
     
     // Execute weathermap
-    passthru("/usr/bin/php opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
+    passthru("php /opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
     
     // Copy weathermap to archive
     copy($path . '/weathermap.png', $path . '/archive/' . $archiveFilename);
