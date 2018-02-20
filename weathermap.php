@@ -14,7 +14,7 @@
   function processWeathermap($file)
   {
     $time = date('[H:m:s]');
-    echo "{$time} Processing {$file}\r\n;
+    echo "{$time} Processing {$file}\r\n";
     $path = "/output/{$file}";
     $archiveFileName = date('YmdHis-{$file}.png');
     
@@ -35,4 +35,5 @@
     } elseif ($toSleep > 60) {
       $toSleep = 60;
     }
+    sleep($toSleep);
   }

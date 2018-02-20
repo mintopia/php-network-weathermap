@@ -4,15 +4,24 @@ MAINTAINER Jessica Smith <jess@mintopia.net>
 WORKDIR /tmp
 
 RUN \
+  apt-get update && \
+  apt-get install -y \
+	wget \
+	libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev && \
+  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+  docker-php-ext-install -j$(nproc) gd && \
   wget https://github.com/howardjones/network-weathermap/archive/version-0.98.tar.gz && \
   tar zxvf version-0.98.tar.gz && \
   rm -f version-0.98.tar.gz && \
-  mkdir -p /opt/network-weathermap && \
-  cp -r network-weathermap-version-0.98 /opt/bin/network-weathermap && /
-  chmod +x /opt/network-weathermap/weathermap
-  mkdir /config
-  mkdir /output
+  mv network-weathermap-version-0.98 /opt/network-weathermap && \
+  chmod +x /opt/network-weathermap/weathermap && \
+  mkdir /config && \
+  mkdir /output && \
+  rm -rf /var/lib/apt/lists/* && \
+  php /opt/network-weathermap/check.php
   
-COPY run.php /opt/weathermap.php
+COPY weathermap.php /opt/weathermap.php
 VOLUME /config /output
-RUN /usr/bin/php /opt/weathermap.php
+CMD ["php", "/opt/weathermap.php"]
