@@ -7,7 +7,7 @@
     echo "{$time} Processing weathermaps\r\n";
     $configs = glob('/configs/*.conf');
     foreach ($configs as $config) {
-      processWeathermap(substr(9, -5, $config));
+      processWeathermap(substr($config, 9, -5));
     }
   }
   
