@@ -26,7 +26,10 @@
     passthru("php /opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
     
     // Copy weathermap to archive
-    copy($path . '/weathermap.png', $path . '/archive/' . $archiveFilename);
+    if (!file_exists($path . '/archive/')) {
+      mkdir($path . '/archive');
+    }
+    copy($path . '/weathermap.png', $path . '/archive/' . $archiveFileName);
   }
 
   while (true) {
