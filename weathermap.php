@@ -17,7 +17,7 @@
     $time = date('[H:m:s]');
     echo "{$time} Processing {$file}\r\n";
     $path = "/output/{$file}";
-    $archiveFileName = date('YmdHis-{$file}.png');
+    $archiveFileName = date('YmdHis') . "-{$file}.png");
     
     // Execute weathermap
     if (!file_exists($path)) {
